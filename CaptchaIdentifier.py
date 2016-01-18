@@ -106,8 +106,7 @@ def train(data,target,dumpFile=CLF_Dump):
     clf.fit(data,target)
     
     #将训练好的分类器序列化
-    with open(dumpFile,'wb') as df:
-        pickle.dump(clf,df)
+    pickle.dump(clf,open(dumpFile,'wb'))
         
     return clf
 
@@ -157,9 +156,7 @@ def identifyCaptcha(pic):
         #训练分类器    
         clf=train(data, target) 
     else:
-        df=open(CLF_Dump,'rb')
-        clf=pickle.load(df)
-        df.close()
+        clf=pickle.load(open(CLF_Dump,'rb'))
     
     testdata=__split_GetPicData(pic)
     result=clf.predict(testdata).tostring()
